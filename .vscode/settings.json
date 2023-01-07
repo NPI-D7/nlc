@@ -49,6 +49,11 @@
         "iosfwd": "cpp",
         "iostream": "cpp",
         "new": "cpp",
-        "numbers": "cpp"
+        "numbers": "cpp",
+        "bitset": "cpp",
+        "ctime": "cpp",
+        "regex": "cpp",
+        "iomanip": "cpp",
+        "sstream": "cpp"
     }
 }

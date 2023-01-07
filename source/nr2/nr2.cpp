@@ -2,12 +2,30 @@
 #include <citro3d.h>
 #include <map>
 #include <nr2/nr2.hpp>
+#include <nuseful/stringtools.hpp>
+#include <vector>
 
 extern C3D_RenderTarget *targets[3];
 
 extern C2D_TextBuf TextBuf;
 extern C2D_Font Font;
 bool currentScreen;
+
+struct Font__ {
+  std::string name;
+  C2D_Font fnt;
+  ;
+};
+
+std::vector<Font__> font_storage;
+
+C2D_Font GetFromReg(std::string reg) {
+  for (auto const &it : font_storage) {
+    if (it.name == nlc::st::ToLowerCase(reg))
+      return it.fnt;
+  }
+  return Font;
+}
 
 namespace nlc {
 namespace nr2 {
@@ -50,90 +68,50 @@ void DrawLine(float x0, float y0, color_t cl0, float x1, float y1, color_t cl1,
 }
 
 void DrawTextCentered(float x, float y, float size, u32 color, std::string Text,
-                      int maxWidth, int maxHeight, C2D_Font fnt) {
-  float lineHeight, widthScale;
+                      int maxWidth, int maxHeight, std::string fontreg) {
+  float lineHeight, widthScale = 0;
 
   // Check for the lineHeight.
-  if (fnt != nullptr) {
-    lineHeight = GetTextHeight(size, " ", fnt);
-  } else {
-    lineHeight = GetTextHeight(size, " ");
-  }
+  lineHeight = GetTextHeight(size, " ", fontreg);
 
   int line = 0;
   while (Text.find('\n') != Text.npos) {
     if (maxWidth == 0) {
       // Do the widthScale.
-      if (fnt != nullptr) {
-        widthScale = GetTextWidth(size, Text.substr(0, Text.find('\n')), fnt);
-      } else {
-        widthScale = GetTextWidth(size, Text.substr(0, Text.find('\n')));
-      }
+      widthScale = GetTextWidth(size, Text.substr(0, Text.find('\n')), fontreg);
     } else {
       // Do the widthScale 2.
-      if (fnt != nullptr) {
-        widthScale =
-            std::min((float)maxWidth,
-                     GetTextWidth(size, Text.substr(0, Text.find('\n')), fnt));
-      } else {
-        widthScale =
-            std::min((float)maxWidth,
-                     GetTextWidth(size, Text.substr(0, Text.find('\n'))));
-      }
+      widthScale = std::min(
+          (float)maxWidth,
+          GetTextWidth(size, Text.substr(0, Text.find('\n')), fontreg));
     }
-    if (fnt != nullptr) {
-      DrawText((currentScreen ? 200 : 160) + x - (widthScale / 2),
-               y + (lineHeight * line), size, color,
-               Text.substr(0, Text.find('\n')), maxWidth, maxHeight, fnt);
-    } else {
-      DrawText((currentScreen ? 200 : 160) + x - (widthScale / 2),
-               y + (lineHeight * line), size, color,
-               Text.substr(0, Text.find('\n')), maxWidth, maxHeight);
-    }
-
-    Text = Text.substr(Text.find('\n') + 1);
-    line++;
   }
+  DrawText((currentScreen ? 200 : 160) + x - (widthScale / 2),
+           y + (lineHeight * line), size, color,
+           Text.substr(0, Text.find('\n')), maxWidth, maxHeight, fontreg);
+  Text = Text.substr(Text.find('\n') + 1);
+  line++;
 
   if (maxWidth == 0) {
     // Do the next WidthScale.
-    if (fnt != nullptr) {
-      widthScale = GetTextWidth(size, Text.substr(0, Text.find('\n')), fnt);
-    } else {
-      widthScale = GetTextWidth(size, Text.substr(0, Text.find('\n')));
-    }
+    widthScale = GetTextWidth(size, Text.substr(0, Text.find('\n')), fontreg);
   } else {
     // And again.
-    if (fnt != nullptr) {
-      widthScale =
-          std::min((float)maxWidth,
-                   GetTextWidth(size, Text.substr(0, Text.find('\n')), fnt));
-    } else {
-      widthScale = std::min(
-          (float)maxWidth, GetTextWidth(size, Text.substr(0, Text.find('\n'))));
-    }
+    widthScale =
+        std::min((float)maxWidth,
+                 GetTextWidth(size, Text.substr(0, Text.find('\n')), fontreg));
   }
-  if (fnt != nullptr) {
-    DrawText((currentScreen ? 200 : 160) + x - (widthScale / 2),
-             y + (lineHeight * line), size, color,
-             Text.substr(0, Text.find('\n')), maxWidth, maxHeight, fnt);
-  } else {
-    DrawText((currentScreen ? 200 : 160) + x - (widthScale / 2),
-             y + (lineHeight * line), size, color,
-             Text.substr(0, Text.find('\n')), maxWidth, maxHeight);
-  }
+  DrawText((currentScreen ? 200 : 160) + x - (widthScale / 2),
+           y + (lineHeight * line), size, color,
+           Text.substr(0, Text.find('\n')), maxWidth, maxHeight, fontreg);
 }
 
 // Draw String or Text.
 void DrawText(float x, float y, float size, u32 color, std::string Text,
-              int maxWidth, int maxHeight, C2D_Font fnt) {
+              int maxWidth, int maxHeight, std::string fontreg) {
   C2D_Text c2d_text;
 
-  if (fnt != nullptr) {
-    C2D_TextFontParse(&c2d_text, fnt, TextBuf, Text.c_str());
-  } else {
-    C2D_TextFontParse(&c2d_text, Font, TextBuf, Text.c_str());
-  }
+  C2D_TextFontParse(&c2d_text, GetFromReg(fontreg), TextBuf, Text.c_str());
 
   C2D_TextOptimize(&c2d_text);
 
@@ -141,80 +119,61 @@ void DrawText(float x, float y, float size, u32 color, std::string Text,
   if (maxHeight == 0) {
     heightScale = size;
   } else {
-    if (fnt != nullptr) {
-      heightScale =
-          std::min(size, size * (maxHeight / GetTextHeight(size, Text, fnt)));
-    } else {
-      heightScale =
-          std::min(size, size * (maxHeight / GetTextHeight(size, Text)));
-    }
+    heightScale =
+        std::min(size, size * (maxHeight / GetTextHeight(size, Text, fontreg)));
   }
 
   if (maxWidth == 0) {
     C2D_DrawText(&c2d_text, C2D_WithColor, x, y, 0.5f, size, heightScale,
                  color);
   } else {
-    if (fnt != nullptr) {
-      C2D_DrawText(
-          &c2d_text, C2D_WithColor, x, y, 0.5f,
-          std::min(size, size * (maxWidth / GetTextWidth(size, Text, fnt))),
-          heightScale, color);
-    } else {
-      C2D_DrawText(&c2d_text, C2D_WithColor, x, y, 0.5f,
-                   std::min(size, size * (maxWidth / GetTextWidth(size, Text))),
-                   heightScale, color);
-    }
+    C2D_DrawText(
+        &c2d_text, C2D_WithColor, x, y, 0.5f,
+        std::min(size, size * (maxWidth / GetTextWidth(size, Text, fontreg))),
+        heightScale, color);
   }
 }
 void DrawTextRight(float x, float y, float size, u32 color, std::string Text,
-                   int maxWidth, int maxHeight, C2D_Font fnt) {
-  DrawText(x - GetTextWidth(size, Text, fnt), y, size, color, Text, maxWidth,
-           maxHeight, fnt);
+                   int maxWidth, int maxHeight, std::string fontreg) {
+  DrawText(x - GetTextWidth(size, Text, fontreg), y, size, color, Text,
+           maxWidth, maxHeight, fontreg);
 }
 // Get String or Text Width.
-float GetTextWidth(float size, std::string Text, C2D_Font fnt) {
+float GetTextWidth(float size, std::string Text, std::string fontreg) {
   float width = 0;
-  if (fnt != nullptr) {
-    GetTextSize(size, &width, NULL, Text, fnt);
-  } else {
-    GetTextSize(size, &width, NULL, Text);
-  }
+  GetTextSize(size, &width, NULL, Text, fontreg);
   return width;
 }
 
 // Get String or Text Size.
 void GetTextSize(float size, float *width, float *height, std::string Text,
-                 C2D_Font fnt) {
+                 std::string fontreg) {
   C2D_Text c2d_text;
-  if (fnt != nullptr) {
-    C2D_TextFontParse(&c2d_text, fnt, TextBuf, Text.c_str());
-  } else {
-    C2D_TextFontParse(&c2d_text, Font, TextBuf, Text.c_str());
-  }
+  C2D_TextFontParse(&c2d_text, GetFromReg(fontreg), TextBuf, Text.c_str());
   C2D_TextGetDimensions(&c2d_text, size, size, width, height);
 }
 
 // Get String or Text Height.
-float GetTextHeight(float size, std::string Text, C2D_Font fnt) {
+float GetTextHeight(float size, std::string Text, std::string fontreg) {
   float height = 0;
-  if (fnt != nullptr) {
-    GetTextSize(size, NULL, &height, Text.c_str(), fnt);
-  } else {
-    GetTextSize(size, NULL, &height, Text.c_str());
-  }
+  GetTextSize(size, NULL, &height, Text.c_str(), fontreg);
   return height;
 }
 
-bool LoadFont(C2D_Font &fnt, const char *Path) {
-  fnt = C2D_FontLoad(Path); // Only load if found.
+bool AddFont(const char *Path, std::string regname) {
+  Font__ temp;
+  temp.fnt = C2D_FontLoad(Path); // Only load if found.
+  temp.name = nlc::st::ToLowerCase(regname);
+  if (temp.fnt)
+    font_storage.push_back(temp);
   return 0;
 }
-
-// Unload a Font.s
-bool UnloadFont(C2D_Font &fnt) {
-  if (fnt != nullptr) {
-    C2D_FontFree(fnt); // Make sure to only unload if not nullptr.
-  }
+// Unload a Font
+bool UnloadFonts() {
+  for (auto const &it : font_storage)
+    if (it.fnt != nullptr) {
+      C2D_FontFree(it.fnt); // Make sure to only unload if not nullptr.
+    }
   return 0;
 }
 } // namespace nr2

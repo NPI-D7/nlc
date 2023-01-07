@@ -1,6 +1,7 @@
 #pragma once
 #include <string>
 #include <napp/worker.hpp>
+#include <napp/time.hpp>
 
 namespace nlc
 {

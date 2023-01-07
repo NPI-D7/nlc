@@ -4,6 +4,10 @@
 #include <sstream>
 #include <string>
 
+#define RGBA8(r, g, b, a)                                                      \
+  ((((r)&0xFF) << 0) | (((g)&0xFF) << 8) | (((b)&0xFF) << 16) |                \
+   (((a)&0xFF) << 24))
+
 namespace nlc {
 struct color_t {
   color_t() {
@@ -57,18 +61,18 @@ struct color_t {
     std::stringstream ss;
     ss << "#";
     ss << std::hex
-       << (((uint8_t)m_r * 255) << 16 | ((uint8_t)m_g * 255) << 8 |
-           ((uint8_t)m_b * 255));
+       << ((uint32_t)RGBA8((int)(m_r * 255), (int)(m_g * 255), (int)(m_b * 255),
+                           (255)));
     return ss.str();
   }
 
   uint32_t GetRGB888() {
-    return (((uint8_t)m_r * 255 << 24) | ((uint8_t)m_g * 255 << 16) |
-            ((uint8_t)m_b * 255 << 8) | 255);
+    return (uint32_t)RGBA8((int)(m_r * 255), (int)(m_g * 255), (int)(m_b * 255),
+                           (255));
   }
   uint32_t GetRGBA() {
-    return (((uint8_t)m_r * 255 << 24) | ((uint8_t)m_g * 255 << 16) |
-            ((uint8_t)m_b * 255 << 8) | (uint8_t)m_a * 255);
+    return (uint32_t)RGBA8((int)(m_r * 255), (int)(m_g * 255), (int)(m_b * 255),
+                           (int)(m_a * 255));
   }
 
   float m_r, m_g, m_b = 0.f;

@@ -8,6 +8,7 @@ napp::napp(std::string name) {
   this->m_lc_name = nlc::st::ToLowerCase(name);
   gfxInitDefault();
   aptInit();
+  romfsInit();
   cfguInit();
 }
 
@@ -16,6 +17,7 @@ napp::~napp() {
   gfxExit();
   aptExit();
   cfguExit();
+  romfsExit();
 }
 
 bool napp::Running() { return m_exit ? false : aptMainLoop(); }

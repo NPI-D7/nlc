@@ -42,5 +42,7 @@ void exit() {
     threadFree(it.thrd);
   }
 }
+
+void sleep(int ms) { svcSleepThread(1000000 * ms); }
 } // namespace worker
 } // namespace nlc
