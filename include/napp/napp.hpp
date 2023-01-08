@@ -12,9 +12,13 @@ public:
   ~napp();
   bool Running();
   void ForceKill();
+  std::string GetSysLangKey();
+  void InitNdsp();
+  bool IsNdspLoadet() { return isNdsp; }
 
 private:
   std::string m_lc_name;
   bool m_exit = false;
+  bool isNdsp = false;
 };
 } // namespace nlc

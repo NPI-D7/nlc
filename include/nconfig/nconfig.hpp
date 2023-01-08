@@ -1,4 +1,5 @@
 #pragma once
+#include <nconfig/lang.hpp>
 #include <nuseful/json.hpp>
 #include <nuseful/parameter.hpp>
 #include <string>
