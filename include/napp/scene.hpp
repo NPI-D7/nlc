@@ -7,8 +7,8 @@ class scene {
 public:
   static std::stack<std::unique_ptr<scene>> scenes;
   virtual ~scene() {}
-  virtual void Logic() const = 0;
-  virtual void Draw() const = 0;
+  virtual void Logic() = 0;
+  virtual void Draw() = 0;
   static void Load(std::unique_ptr<scene> scene);
   static void Back();
   static void doDraw();
