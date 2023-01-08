@@ -1,5 +1,6 @@
 #pragma once
 #include <napp/fsys.hpp>
+#include <napp/ntrace.hpp>
 #include <napp/scene.hpp>
 #include <napp/time.hpp>
 #include <napp/worker.hpp>

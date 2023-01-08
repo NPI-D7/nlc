@@ -33,7 +33,7 @@ namespace nlc {
 namespace nr2 {
 void DrawOnScreen(int screen) {
   C2D_SceneBegin(targets[screen]);
-  currentScreen = (screen == 1) ? 0 : 1;
+  currentScreen = ((screen == 1) ? 0 : 1);
 }
 void DrawRect(int x, int y, int w, int h, color_t tl, color_t tr, color_t bl,
               color_t br) {
