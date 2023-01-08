@@ -16,7 +16,7 @@ namespace nlc {
 namespace fsys {
 std::string GetParentPath(std::string path, std::string mount_point) {
   std::string tcl = path;
-  if (path.substr(path.length(), 1) != "/") {
+  if (path.substr(path.length()-1, 1) != "/") {
     tcl += "/";
   }
   if (std::filesystem::exists(
