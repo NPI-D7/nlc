@@ -1,4 +1,4 @@
-#include <algobase.h>
+#include <algorithm>
 #include <napp/fsys.hpp>
 #include <nuseful/stringtools.hpp>
 
