@@ -1,5 +1,16 @@
+#include <algobase.h>
 #include <napp/fsys.hpp>
 #include <nuseful/stringtools.hpp>
+
+bool dirEntryPredicate(const nlc::fsys::DirEntry &lhs,
+                       const nlc::fsys::DirEntry &rhs) {
+  if (!lhs._is_dir && rhs._is_dir)
+    return false;
+  if (lhs._is_dir && !rhs._is_dir)
+    return true;
+
+  return strcasecmp(lhs.name.c_str(), rhs.name.c_str()) < 0;
+}
 
 namespace nlc {
 namespace fsys {
@@ -20,16 +31,17 @@ GetDirContentsExt(std::string &path,
   std::vector<nlc::fsys::DirEntry> res;
   for (auto const &it :
        std::filesystem::directory_iterator(std::filesystem::path(path))) {
+    nlc::fsys::DirEntry temp;
+    temp.name = nlc::st::GetFileName(it.path().string());
+    temp.path = it.path().string();
+    temp._is_dir = it.is_directory();
     if (nlc::st::NameIsEndingWith(nlc::st::GetFileName(it.path().string()),
-                                       extensions) ||
-             it.is_directory()) {
-      nlc::fsys::DirEntry temp;
-      temp.name = nlc::st::GetFileName(it.path().string());
-      temp.path = it.path().string();
-      temp._is_dir = it.is_directory();
+                                  extensions) ||
+        it.is_directory()) {
       res.push_back(temp);
     }
   }
+  std::sort(res.begin(), res.end(), dirEntryPredicate);
   return res;
 }
 
