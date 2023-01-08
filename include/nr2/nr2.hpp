@@ -1,4 +1,5 @@
 #pragma once
+#include <nr2/image.hpp>
 #include <nuseful/color.hpp>
 #include <string>
 
@@ -19,17 +20,20 @@ void DrawTrangle(float x0, float y0, color_t cl0, float x1, float y1,
 void DrawLine(float x0, float y0, color_t cl0, float x1, float y1, color_t cl1,
               float t, float d);
 float GetTextHeight(float size, std::string Text, std::string fontreg = "");
-void DrawTextCentered(float x, float y, float size, uint32_t color, std::string Text,
-                  int maxWidth = 0, int maxHeight = 0, std::string fontreg = "");
+void DrawTextCentered(float x, float y, float size, uint32_t color,
+                      std::string Text, int maxWidth = 0, int maxHeight = 0,
+                      std::string fontreg = "");
 void DrawText(float x, float y, float size, uint32_t color, std::string Text,
-          int maxWidth = 0, int maxHeight = 0, std::string fontreg = "");
-void DrawTextRight(float x, float y, float size, uint32_t color, std::string Text,
-               int maxWidth = 0, int maxHeight = 0, std::string fontreg = "");
+              int maxWidth = 0, int maxHeight = 0, std::string fontreg = "");
+void DrawTextRight(float x, float y, float size, uint32_t color,
+                   std::string Text, int maxWidth = 0, int maxHeight = 0,
+                   std::string fontreg = "");
 float GetTextWidth(float size, std::string Text, std::string fontreg = "");
 void GetTextSize(float size, float *width, float *height, std::string Text,
                  std::string fontreg = "");
 
 bool AddFont(const char *Path = "", std::string regname = "");
 bool UnloadFonts();
+void DrawImage(int x, int y, image img, float scalex = 1.f, float scaley = 1.f);
 } // namespace nr2
 } // namespace nlc

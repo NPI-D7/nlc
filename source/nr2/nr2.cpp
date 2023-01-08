@@ -27,6 +27,8 @@ C2D_Font GetFromReg(std::string reg) {
   return Font;
 }
 
+extern C2D_Image *GetImage(int reg);
+
 namespace nlc {
 namespace nr2 {
 void DrawOnScreen(int screen) {
@@ -175,6 +177,11 @@ bool UnloadFonts() {
       C2D_FontFree(it.fnt); // Make sure to only unload if not nullptr.
     }
   return 0;
+}
+
+void DrawImage(int x, int y, image img, float scalex, float scaley) {
+  C2D_DrawImageAt(GetImage(img.GetReg())[0], x, y, 0.5, nullptr, scalex,
+                  scaley);
 }
 } // namespace nr2
 } // namespace nlc

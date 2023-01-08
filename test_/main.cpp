@@ -39,6 +39,8 @@ int main() {
   nlc::nr::Init();
   nlc::nr2::AddFont("romfs:/roboto_regular.bcfnt", "rr");
   nlc::worker::push(Test, "stringbuilder");
+  nlc::image imgl;
+  imgl.LoadFile("romfs:/TCSL80N.png");
 
   while (app.Running()) {
     nlc::nr::DrawBeg();
@@ -46,6 +48,7 @@ int main() {
     nlc::nr2::DrawRect(0, 0, 400, 240, nlc::color_t("#60CCCC"),
                        nlc::color_t("#60CCCC"), nlc::color_t("#429A9F"),
                        nlc::color_t("#429A9F"));
+    nlc::nr2::DrawImage(0, 0, imgl);
     nlc::nr2::DrawText(0, 0, 1, nlc::color_t().GetRGBA(),
                        nlc::ntime::GetTimeStr(), 0, 0, "sans");
     if (is_start) {
@@ -53,6 +56,9 @@ int main() {
       nlc::nr2::DrawText(0, 0, 0.7, nlc::color_t("#ffffff").GetRGBA(), to_print,
                          0, 0, "");
     }
+
+    nlc::nr2::DrawOnScreen(1);
+    nlc::nr2::DrawImage(-40, 0, imgl);
 
     nlc::nr::DrawEnd();
   }
