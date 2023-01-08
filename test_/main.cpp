@@ -30,7 +30,7 @@ static void Test() {
     ix++;
     nlc::worker::sleep(20);
   }
-  nlc::worker::sleep(2000);
+  nlc::worker::sleep(1000);
   is_start = false;
 }
 
@@ -49,8 +49,11 @@ int main() {
                        nlc::color_t("#60CCCC"), nlc::color_t("#429A9F"),
                        nlc::color_t("#429A9F"));
     nlc::nr2::DrawImage(0, 0, imgl);
-    nlc::nr2::DrawText(0, 0, 1, nlc::color_t().GetRGBA(),
-                       nlc::ntime::GetTimeStr(), 0, 0, "sans");
+    nlc::nr2::DrawText(0, 0, 1, nlc::color_t().GetRGBA(), "sdmc:/3ds/Bcstm", 0,
+                       0, "sans");
+    nlc::nr2::DrawText(0, 30, 1, nlc::color_t().GetRGBA(),
+                       nlc::fsys::GetParentPath("sdmc:/3ds/Bcstm", "sdmc:/"), 0,
+                       0, "sans");
     if (is_start) {
       nlc::nr2::DrawRectSolid(0, 0, 400, 240, nlc::color_t("#000000"));
       nlc::nr2::DrawText(0, 0, 0.7, nlc::color_t("#ffffff").GetRGBA(), to_print,
