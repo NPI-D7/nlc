@@ -1,4 +1,5 @@
 #include <fstream>
+#include <unistd.h>
 #include <nconfig/lang.hpp>
 
 static nlohmann::json appJson;
