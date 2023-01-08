@@ -20,17 +20,9 @@ GetDirContentsExt(std::string &path,
   std::vector<nlc::fsys::DirEntry> res;
   for (auto const &it :
        std::filesystem::directory_iterator(std::filesystem::path(path))) {
-
-    if (it.is_directory()) {
-      nlc::fsys::DirEntry temp;
-      temp.name = nlc::st::GetFileName(it.path().string());
-      temp.path = it.path().string();
-      temp.size = it.file_size();
-      temp._is_dir = it.is_directory();
-      res.push_back(temp);
-    }
     if (nlc::st::NameIsEndingWith(nlc::st::GetFileName(it.path().string()),
-                                  extensions)) {
+                                       extensions) ||
+             it.is_directory()) {
       nlc::fsys::DirEntry temp;
       temp.name = nlc::st::GetFileName(it.path().string());
       temp.path = it.path().string();
