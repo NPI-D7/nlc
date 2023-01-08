@@ -26,7 +26,6 @@ GetDirContentsExt(std::string &path,
       nlc::fsys::DirEntry temp;
       temp.name = nlc::st::GetFileName(it.path().string());
       temp.path = it.path().string();
-      temp.size = it.is_directory() ? 0 : it.file_size();
       temp._is_dir = it.is_directory();
       res.push_back(temp);
     }

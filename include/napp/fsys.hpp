@@ -8,7 +8,6 @@ namespace fsys {
 struct DirEntry {
   std::string name = "";
   std::string path = "";
-  size_t size = 0;
   bool _is_dir = false;
 };
 
