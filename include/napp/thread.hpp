@@ -33,7 +33,7 @@ public:
 
   static void sleep();
 
-  void thread::sleep(int t_milliseconds);
+  void sleep(int t_milliseconds);
 
 private:
   struct threadData {

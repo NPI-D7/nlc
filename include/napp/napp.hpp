@@ -2,8 +2,9 @@
 #include <napp/fsys.hpp>
 #include <napp/ntrace.hpp>
 #include <napp/scene.hpp>
+#include <napp/thread.hpp>
 #include <napp/time.hpp>
-#include <napp/worker.hpp>
+#include <napp/worker.hpp> //alternative to thread
 #include <string>
 
 namespace nlc {
