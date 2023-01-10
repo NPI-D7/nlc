@@ -13,13 +13,13 @@ napp::napp(std::string name) {
 }
 
 napp::~napp() {
-  worker::exit();
-  gfxExit();
-  aptExit();
   if (isNdsp)
     ndspExit();
-  cfguExit();
   romfsExit();
+  gfxExit();
+  aptExit();
+  worker::exit();
+  cfguExit();
 }
 
 bool napp::Running() { return m_exit ? false : aptMainLoop(); }
