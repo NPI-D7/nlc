@@ -1,8 +1,11 @@
 #pragma once
+#include <3ds.h>
 #include <atomic>
 #include <functional>
 #include <nuseful/parameter.hpp>
 #include <string>
+
+using CTRU_Thread = Thread;
 
 #define THREAD_STACK_SIZE 0x1000
 
@@ -20,20 +23,13 @@ public:
                   nlc::parameter t_parameter = nullptr,
                   bool t_autostart = false, bool t_detached = false,
                   unsigned long long int t_stackSize = 4 * 1024);
-
   void setStackSize(unsigned long long int t_stackSize);
-
   void start(bool t_detached = false);
-
   void kill();
-
-  void join(long long unsigned int t_timeout = UINT64_MAX);
-
+  void join(long long unsigned int t_timeout = U64_MAX);
   bool isRunning();
-
   static void sleep();
-
-  void sleep(int t_milliseconds);
+  static void sleep(int t_milliseconds);
 
 private:
   struct threadData {
@@ -48,6 +44,6 @@ private:
   bool m_started;
   std::atomic<bool> m_running;
   nlc::thread::threadData m_data;
-  int m_thread;
+  CTRU_Thread m_thread;
 };
 } // namespace nlc
