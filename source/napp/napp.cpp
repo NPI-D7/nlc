@@ -22,9 +22,14 @@ napp::~napp() {
   cfguExit();
 }
 
-bool napp::Running() { return m_exit ? false : aptMainLoop(); }
+bool napp::Running() {
+  if (!aptMainLoop())
+    return false;
 
-void napp::ForceKill() { m_exit = false; }
+  return !m_exit;
+}
+
+void napp::ForceKill() { m_exit = true; }
 
 std::string napp::GetSysLangKey() {
   u8 language = 1;
