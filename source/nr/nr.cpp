@@ -27,11 +27,11 @@ void Exit() {
   C3D_Fini();
 }
 void DrawBeg() {
+  C3D_FrameBegin(C3D_FRAME_SYNCDRAW);
   C2D_TextBufClear(TextBuf);
   C2D_TargetClear(targets[0], C2D_Color32(0, 0, 0, 0));
   C2D_TargetClear(targets[1], C2D_Color32(0, 0, 0, 0));
   C2D_TargetClear(targets[2], C2D_Color32(0, 0, 0, 0));
-  C3D_FrameBegin(C3D_FRAME_SYNCDRAW);
 }
 void DrawEnd() { C3D_FrameEnd(0); }
 } // namespace nr

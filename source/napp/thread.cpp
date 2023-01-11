@@ -1,15 +1,14 @@
 #include <3ds.h>
 #include <napp/thread.hpp>
 
-
 namespace nlc {
 
 thread::thread() : m_started(false), m_running(false) { /* do nothing */
 }
 
 thread::thread(std::function<void(nlc::parameter)> t_function,
-               nlc::parameter t_parameter, bool t_autostart,
-               bool t_detached, unsigned long long int t_stackSize)
+               nlc::parameter t_parameter, bool t_autostart, bool t_detached,
+               unsigned long long int t_stackSize)
     : m_started(false), m_running(false) {
   initialize(t_function, t_parameter, t_autostart, t_detached, t_stackSize);
 }
@@ -74,8 +73,7 @@ void thread::sleep(int t_milliseconds) {
 
 // private methods
 void thread::threadFunction(void *arg) {
-  nlc::thread::threadData data =
-      *static_cast<nlc::thread::threadData *>(arg);
+  nlc::thread::threadData data = *static_cast<nlc::thread::threadData *>(arg);
   data.m_function(data.m_parameter);
   *data.m_running = false;
 }
