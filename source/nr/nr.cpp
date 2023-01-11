@@ -31,7 +31,7 @@ void DrawBeg() {
   C2D_TextBufClear(TextBuf);
   C2D_TargetClear(targets[0], C2D_Color32(0, 0, 0, 0));
   C2D_TargetClear(targets[1], C2D_Color32(0, 0, 0, 0));
-  C2D_TargetClear(targets[2], C2D_Color32(0, 0, 0, 0));
+  // C2D_TargetClear(targets[2], C2D_Color32(0, 0, 0, 0));
 }
 void DrawEnd() { C3D_FrameEnd(0); }
 } // namespace nr
