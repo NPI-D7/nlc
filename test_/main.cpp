@@ -45,9 +45,8 @@ int main() {
   while (app.Running()) {
     nlc::nr::DrawBeg();
     nlc::nr2::DrawOnScreen(0);
-    nlc::nr2::DrawRect(0, 0, 400, 240, nlc::color_t("#60CCCC"),
-                       nlc::color_t("#60CCCC"), nlc::color_t("#429A9F"),
-                       nlc::color_t("#429A9F"));
+    nlc::nr2::DrawRect(0, 0, 400, 240, 0x6ff0cccc, 0x6ff0cccc, 0xff429a9f,
+                       0xff429a9f);
     nlc::nr2::DrawImage(0, 0, imgl);
     nlc::nr2::DrawText(0, 0, 1, nlc::color_t().GetRGBA(), "sdmc:/3ds/Bcstm", 0,
                        0, "sans");
@@ -55,9 +54,8 @@ int main() {
                        nlc::fsys::GetParentPath("sdmc:/3ds/Bcstm", "sdmc:/"), 0,
                        0, "sans");
     if (is_start) {
-      nlc::nr2::DrawRectSolid(0, 0, 400, 240, nlc::color_t("#000000"));
-      nlc::nr2::DrawText(0, 0, 0.7, nlc::color_t("#ffffff").GetRGBA(), to_print,
-                         0, 0, "");
+      nlc::nr2::DrawRectSolid(0, 0, 400, 240, 0xff000000);
+      nlc::nr2::DrawText(0, 0, 0.7, 0xffffffff, to_print, 0, 0, "");
     }
 
     nlc::nr2::DrawOnScreen(1);

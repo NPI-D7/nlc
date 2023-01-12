@@ -10,6 +10,7 @@ napp::napp(std::string name) {
   aptInit();
   romfsInit();
   cfguInit();
+  osSetSpeedupEnable(true);
 }
 
 napp::~napp() {

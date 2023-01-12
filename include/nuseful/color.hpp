@@ -78,4 +78,8 @@ struct color_t {
   float m_r, m_g, m_b = 0.f;
   float m_a = 1.f;
 };
+namespace color_storage {
+bool Add(color_t col, std::string register_id);
+uint32_t Get(std::string reg);
+} // namespace color_storage
 } // namespace nlc

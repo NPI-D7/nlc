@@ -35,38 +35,34 @@ void DrawOnScreen(int screen) {
   C2D_SceneBegin(targets[screen]);
   currentScreen = ((screen == 1) ? false : true);
 }
-void DrawRect(int x, int y, int w, int h, color_t tl, color_t tr, color_t bl,
-              color_t br) {
-  C2D_DrawRectangle(x, y, 0.5, w, h, tl.GetRGBA(), tr.GetRGBA(), bl.GetRGBA(),
-                    br.GetRGBA());
+void DrawRect(int x, int y, int w, int h, uint32_t tl, uint32_t tr, uint32_t bl,
+              uint32_t br) {
+  C2D_DrawRectangle(x, y, 0.5, w, h, tl, tr, bl, br);
 }
-void DrawRectSolid(int x, int y, int w, int h, color_t color) {
-  C2D_DrawRectSolid(x, y, 0.5, w, h, color.GetRGBA());
+void DrawRectSolid(int x, int y, int w, int h, uint32_t color) {
+  C2D_DrawRectSolid(x, y, 0.5, w, h, color);
 }
-void DrawCircle(int x, int y, float r, color_t tl, color_t tr, color_t bl,
-                color_t br) {
-  C2D_DrawCircle(x, y, 0.5, r, tl.GetRGBA(), tr.GetRGBA(), bl.GetRGBA(),
-                 br.GetRGBA());
+void DrawCircle(int x, int y, float r, uint32_t tl, uint32_t tr, uint32_t bl,
+                uint32_t br) {
+  C2D_DrawCircle(x, y, 0.5, r, tl, tr, bl, br);
 }
-void DrawCircleSolid(int x, int y, float r, color_t color) {
-  C2D_DrawCircleSolid(x, y, 0.5, r, color.GetRGBA());
+void DrawCircleSolid(int x, int y, float r, uint32_t color) {
+  C2D_DrawCircleSolid(x, y, 0.5, r, color);
 }
-void DrawEllipse(int x, int y, int w, int h, color_t tl, color_t tr, color_t bl,
-                 color_t br) {
-  C2D_DrawEllipse(x, y, 0.5, w, h, tl.GetRGBA(), tr.GetRGBA(), bl.GetRGBA(),
-                  br.GetRGBA());
+void DrawEllipse(int x, int y, int w, int h, uint32_t tl, uint32_t tr,
+                 uint32_t bl, uint32_t br) {
+  C2D_DrawEllipse(x, y, 0.5, w, h, tl, tr, bl, br);
 }
-void DrawEllipseSolid(int x, int y, int w, int h, color_t color) {
-  C2D_DrawEllipseSolid(x, y, 0.5, w, h, color.GetRGBA());
+void DrawEllipseSolid(int x, int y, int w, int h, uint32_t color) {
+  C2D_DrawEllipseSolid(x, y, 0.5, w, h, color);
 }
-void DrawTrangle(float x0, float y0, color_t cl0, float x1, float y1,
-                 color_t cl1, float x2, float y2, color_t cl2, float d) {
-  C2D_DrawTriangle(x0, y0, cl0.GetRGBA(), x1, y1, cl1.GetRGBA(), x2, y2,
-                   cl2.GetRGBA(), d);
+void DrawTrangle(float x0, float y0, uint32_t cl0, float x1, float y1,
+                 uint32_t cl1, float x2, float y2, uint32_t cl2, float d) {
+  C2D_DrawTriangle(x0, y0, cl0, x1, y1, cl1, x2, y2, cl2, d);
 }
-void DrawLine(float x0, float y0, color_t cl0, float x1, float y1, color_t cl1,
-              float t, float d) {
-  C2D_DrawLine(x0, y0, cl0.GetRGBA(), x1, y1, cl1.GetRGBA(), t, d);
+void DrawLine(float x0, float y0, uint32_t cl0, float x1, float y1,
+              uint32_t cl1, float t, float d) {
+  C2D_DrawLine(x0, y0, cl0, x1, y1, cl1, t, d);
 }
 
 void DrawTextCentered(float x, float y, float size, u32 color, std::string Text,
