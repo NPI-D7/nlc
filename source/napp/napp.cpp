@@ -92,9 +92,11 @@ std::string napp::GetSysLangKey() {
   return "en";
 }
 void napp::InitNdsp() {
-  Result res = ndspInit();
-  if (R_SUCCEEDED(res)) {
-    isNdsp = true;
+  if (std::filesystem::exists(std::filesystem::path("sdmc:/3ds/dspfirm.cdc"))) {
+    Result res = ndspInit();
+    if (R_SUCCEEDED(res)) {
+      isNdsp = true;
+    }
   }
 }
 } // namespace nlc
