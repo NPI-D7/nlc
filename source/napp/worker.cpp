@@ -25,7 +25,7 @@ std::vector<std::string> GetTasks() {
 }
 void kill(std::string task) {
   if (tasks.contains(nlc::st::ToLowerCase(task))) {
-    threadJoin(tasks.at(nlc::st::ToLowerCase(task))[0], U64_MAX);u
+    threadJoin(tasks.at(nlc::st::ToLowerCase(task))[0], U64_MAX);
     threadFree(tasks.at(nlc::st::ToLowerCase(task))[0]);
   }
 }
