@@ -14,7 +14,12 @@ void push(void (*task)(void), std::string name) {
   svcGetThreadPriority(&prio, CUR_THREAD_HANDLE);
   Thread thrd =
       threadCreate((ThreadFunc)task, NULL, 64 * 1024, prio - 1, -2, false);
-  tasks.insert(std::make_pair(__name, &thrd));
+  if (!tasks.contains(nlc::st::ToLowerCase(name))) {
+    tasks.insert(std::make_pair(__name, &thrd));
+  } else {
+    nlc::worker::kill(name);
+    tasks.insert(std::make_pair(__name, &thrd));
+  }
 }
 std::vector<std::string> GetTasks() {
   std::vector<std::string> temp;
