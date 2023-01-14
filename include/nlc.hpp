@@ -10,3 +10,9 @@
 
 // Application Stuff
 #include <napp/napp.hpp>
+
+// UI Framework
+#include <lithium/lithium.hpp>
+
+// Useful stuff
+#include <nuseful/nuseful.hpp>
