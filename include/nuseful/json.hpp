@@ -3367,7 +3367,9 @@ template <unsigned N> struct priority_tag : priority_tag<N - 1> {};
 template <> struct priority_tag<0> {};
 
 // taken from ranges-v3
-template <typename T> struct static_const { static constexpr T value{}; };
+template <typename T> struct static_const {
+  static constexpr T value{};
+};
 
 template <typename T> constexpr T static_const<T>::value;
 } // namespace detail
@@ -3387,7 +3389,9 @@ template <typename T> constexpr T static_const<T>::value;
 
 namespace nlohmann {
 namespace detail {
-template <typename... Ts> struct make_void { using type = void; };
+template <typename... Ts> struct make_void {
+  using type = void;
+};
 template <typename... Ts> using void_t = typename make_void<Ts...>::type;
 } // namespace detail
 } // namespace nlohmann
