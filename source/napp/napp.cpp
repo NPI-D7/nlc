@@ -19,7 +19,7 @@ napp::~napp() {
   romfsExit();
   gfxExit();
   aptExit();
-  worker::exit();
+  // worker::exit();
   cfguExit();
 }
 

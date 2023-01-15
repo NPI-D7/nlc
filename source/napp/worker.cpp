@@ -24,8 +24,7 @@ void push(void (*task)(void), std::string name) {
 std::vector<std::string> GetTasks() {
   std::vector<std::string> temp;
   for (auto const &it : tasks) {
-    temp.push_back(it.first + " (" +
-                   std::to_string(threadGetExitCode(it.second[0])) + ")");
+    temp.push_back(it.first);
   }
   return temp;
 }
