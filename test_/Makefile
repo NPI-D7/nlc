@@ -68,7 +68,7 @@ VERSION_MICRO := 0
 #---------------------------------------------------------------------------------
 TARGET		:=	test_
 BUILD		:=	build
-SOURCES		:=	. ../source/napp ../source/nr ../source/nr2 ../source/nuseful ../source/nconfig ../source/ndfa
+SOURCES		:=	. ../source/napp ../source/nr ../source/nr2 ../source/nuseful ../source/nconfig ../source/lithium
 DATA		:=	data
 INCLUDES	:=	. ../include/
 GRAPHICS	:=	gfx

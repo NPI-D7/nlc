@@ -17,10 +17,6 @@ void el_Rect::OnRender(float sx, float sy, float sw, float sh) {
                 m_corner_br);
 }
 
-el_Rect::el_Rect() {}
-
-el_Rect::el_Rect() {}
-
 el_Rect::el_Rect() {
   m_corner_bl = nlc::color_storage::Get("");
   m_corner_br = nlc::color_storage::Get("");

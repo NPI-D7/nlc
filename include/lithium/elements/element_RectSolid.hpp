@@ -9,8 +9,6 @@ class el_RectSolid : public element {
 private:
   float m_x, m_y, m_w, m_h = 0.f;
   uint32_t m_color;
-
-protected:
 public:
   ~el_RectSolid() override;
   void OnRender(float sx, float sy, float sw, float sh) override;
