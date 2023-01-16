@@ -12,12 +12,6 @@ private:
   std::vector<nlc::li::element*> elements;
 
 public:
-  container() {
-    m_x = 0;
-    m_y = 0;
-    m_w = 0;
-    m_h = 0;
-  }
   container(float x, float y, float w, float h) {
     m_x = x;
     m_y = y;
