@@ -22,7 +22,7 @@ int main() {
     nlc::nr::DrawBeg();
     nlc::nr2::DrawOnScreen(0);
     nlc::li::el_RectSolid rect(0, 0, 100, 200, nlc::color_storage::Get("coll"));
-    //container.AddElement(rect);
+    // container.AddElement(rect);
     container.AddElement(btn);
     nlc::nr2::DrawImage(0, 0, imgl);
     nlc::nr2::DrawText(0, 0, 1, nlc::color_t().GetRGBA(), "sdmc:/3ds/Bcstm", 0,

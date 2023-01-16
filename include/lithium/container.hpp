@@ -1,7 +1,7 @@
 #pragma once
 
-#include <lithium/elements/elements.hpp>
 #include <algorithm>
+#include <lithium/elements/elements.hpp>
 #include <memory>
 #include <vector>
 
@@ -9,7 +9,7 @@ namespace nlc::li {
 class container {
 private:
   float m_x, m_y, m_w, m_h;
-  std::vector<nlc::li::element*> elements;
+  std::vector<nlc::li::element *> elements;
 
 public:
   container(float x, float y, float w, float h) {
@@ -24,8 +24,6 @@ public:
     }
     elements.clear();
   }
-  void AddElement(nlc::li::element& elm) {
-    elements.push_back(&elm);
-  }
+  void AddElement(nlc::li::element &elm) { elements.push_back(&elm); }
 };
 } // namespace nlc::li

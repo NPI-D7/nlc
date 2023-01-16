@@ -26,8 +26,7 @@ public:
   void OnRender(float sx, float sy, float sw, float sh) override;
 
   el_Button();
-  el_Button(float x, float y, float w, float h,
-            std::string txt);
+  el_Button(float x, float y, float w, float h, std::string txt);
   void SetPosition(float x, float y);
   void SetSize(float w, float h);
   uint32_t GetColor();

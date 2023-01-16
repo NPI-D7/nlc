@@ -12,6 +12,7 @@ private:
   uint32_t m_corner_tr;
   uint32_t m_corner_bl;
   uint32_t m_corner_br;
+
 public:
   ~el_Rect() override;
   void OnRender(float sx, float sy, float sw, float sh) override;
