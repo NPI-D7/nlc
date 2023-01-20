@@ -12,6 +12,54 @@
 #include <unistd.h>
 #include <vector>
 
+#ifdef __GNUC__
+int vscprintf(const char *format, va_list ap) {
+  va_list ap_copy;
+  va_copy(ap_copy, ap);
+  int retval = vsnprintf(NULL, 0, format, ap_copy);
+  va_end(ap_copy);
+  return retval;
+}
+#endif
+
+#ifdef _MSC_VER
+// not #if defined(_WIN32) || defined(_WIN64) because we have strncasecmp in
+// mingw
+#define strncasecmp _strnicmp
+#define strcasecmp _stricmp
+#define vscprintf _vscprintf
+
+/*
+ * asprintf, vasprintf:
+ * MSVC does not implement these, thus we implement them here
+ * GNU-C-compatible compilers implement these with the same names, thus we
+ * don't have to do anything
+ */
+int vasprintf(char **strp, const char *format, va_list ap) {
+  int len = vscprintf(format, ap);
+  if (len == -1)
+    return -1;
+  char *str = (char *)malloc((size_t)len + 1);
+  if (!str)
+    return -1;
+  int retval = vsnprintf(str, len + 1, format, ap);
+  if (retval == -1) {
+    free(str);
+    return -1;
+  }
+  *strp = str;
+  return retval;
+}
+
+int asprintf(char **strp, const char *format, ...) {
+  va_list ap;
+  va_start(ap, format);
+  int retval = vasprintf(strp, format, ap);
+  va_end(ap);
+  return retval;
+}
+#endif
+
 namespace nlc {
 namespace st {
 inline std::string ToLowerCase(std::string in) {
