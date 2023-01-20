@@ -12,16 +12,6 @@
 #include <unistd.h>
 #include <vector>
 
-#ifdef __GNUC__
-int vscprintf(const char *format, va_list ap) {
-  va_list ap_copy;
-  va_copy(ap_copy, ap);
-  int retval = vsnprintf(NULL, 0, format, ap_copy);
-  va_end(ap_copy);
-  return retval;
-}
-#endif
-
 #ifdef _MSC_VER
 // not #if defined(_WIN32) || defined(_WIN64) because we have strncasecmp in
 // mingw
